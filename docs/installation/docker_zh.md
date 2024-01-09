@@ -2,58 +2,70 @@
 
 # Docker
 
-## 安装Docker
+## 安装 Docker
 
 ### Ubuntu
+
 ```shell
 curl -fsSL https://test.docker.com -o test-docker.sh
 sudo sh test-docker.sh
 ```
+
 ### Debian
+
 ```shell
  curl -fsSL https://get.docker.com -o get-docker.sh
  sudo sh get-docker.sh
 ```
 
 ### CentOS
+
 ```shell
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 ```
 
 ### MacOS
+
 ```shell
 brew install --cask --appdir=/Applications docker
 ```
 
 ### Windows
+
 请参考[文档](https://docs.docker.com/desktop/install/windows-install/)
 
-## 启动Docker
+## 启动 Docker
+
 ```shell
 sudo systemctl start docker
 ```
-## 下载Docker镜像
+
+## 下载 Docker 镜像
 
 ### 镜像仓库
 
 #### CPU
-`registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.3.0`
+
+`registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.4.1`
 
 #### GPU
 
 `registry.cn-hangzhou.aliyuncs.com/modelscope-repo/modelscope:ubuntu20.04-py38-torch1.11.0-tf1.15.5-1.8.1`
 
 ### 拉取镜像
+
 ```shell
 sudo docker pull <image-name>:<tag>
 ```
 
 ### 查看镜像
+
 ```shell
 sudo docker images
 ```
 
-## 运行Docker
+## 运行 Docker
+
 ```shell
 # cpu
 sudo docker run -itd --name funasr -v <local_dir:dir_in_docker> <image-name>:<tag> /bin/bash
@@ -63,10 +75,10 @@ sudo docker run -itd --gpus all --name funasr -v <local_dir:dir_in_docker> <imag
 sudo docker exec -it funasr /bin/bash
 ```
 
-## 停止Docker
+## 停止 Docker
+
 ```shell
 exit
 sudo docker ps
 sudo docker stop funasr
 ```
-

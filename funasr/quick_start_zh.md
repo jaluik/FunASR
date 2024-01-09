@@ -1,40 +1,46 @@
 (简体中文|[English](./quick_start.md))
 
 <a name="快速开始"></a>
+
 ## 快速开始
 
-您可以通过如下几种方式使用FunASR功能:
+您可以通过如下几种方式使用 FunASR 功能:
 
 - 服务部署社区软件包
-- 工业模型egs
-- 学术模型egs
+- 工业模型 egs
+- 学术模型 egs
 
 ### 服务部署社区软件包
 
-#### python版本示例
+#### python 版本示例
 
-支持实时流式语音识别，并且会用非流式模型进行纠错，输出文本带有标点。目前只支持单个client，如需多并发请参考下方c++版本服务部署SDK
+支持实时流式语音识别，并且会用非流式模型进行纠错，输出文本带有标点。目前只支持单个 client，如需多并发请参考下方 c++版本服务部署 SDK
 
 ##### 服务端部署
+
 ```shell
 cd runtime/python/websocket
 python funasr_wss_server.py --port 10095
 ```
 
 ##### 客户端测试
+
 ```shell
 python funasr_wss_client.py --host "127.0.0.1" --port 10095 --mode 2pass --chunk_size "5,10,5"
 #python funasr_wss_client.py --host "127.0.0.1" --port 10095 --mode 2pass --chunk_size "8,8,4" --audio_in "./data/wav.scp"
 ```
+
 更多例子可以参考（[点击此处](../runtime/python/websocket/README.md)）
 
 <a name="cpp版本示例"></a>
+
 #### 服务部署软件包
 
-既可以进行高精度、高效率与高并发的文件转写，也可以进行低延时的实时语音听写。支持Docker化部署，多路请求。
+既可以进行高精度、高效率与高并发的文件转写，也可以进行低延时的实时语音听写。支持 Docker 化部署，多路请求。
 
-##### 准备工作：docker安装（可选）
-###### 如果您已安装docker，忽略本步骤
+##### 准备工作：docker 安装（可选）
+
+###### 如果您已安装 docker，忽略本步骤
 
 ```shell
 curl -O https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ASR/shell/install_docker.sh;
@@ -43,8 +49,9 @@ sudo bash install_docker.sh
 
 ##### 实时语音听写服务部署
 
-###### docker镜像下载与启动
-通过下述命令拉取并启动FunASR软件包docker镜像（[获取最新镜像版本](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_online_zh.md)）：
+###### docker 镜像下载与启动
+
+通过下述命令拉取并启动 FunASR 软件包 docker 镜像（[获取最新镜像版本](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_online_zh.md)）：
 
 ```shell
 sudo docker pull \
@@ -56,7 +63,9 @@ sudo docker run -p 10096:10095 -it --privileged=true \
 ```
 
 ###### 服务端启动
-docker启动之后，启动 funasr-wss-server-2pass服务程序：
+
+docker 启动之后，启动 funasr-wss-server-2pass 服务程序：
+
 ```shell
 cd FunASR/runtime
 nohup bash run_server_2pass.sh \
@@ -77,31 +86,34 @@ nohup bash run_server_2pass.sh \
 ```
 
 ##### 客户端测试与使用
+
 客户端测试（[samples](https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ASR/sample/funasr_samples.tar.gz)）
 
 ```shell
 python3 funasr_wss_client.py --host "127.0.0.1" --port 10096 --mode 2pass
 ```
+
 更多例子参考（[点击此处](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_online_zh.md)）
 
 ##### 离线文件转写服务部署
 
 ###### 镜像启动
 
-通过下述命令拉取并启动FunASR软件包docker镜像（[获取最新镜像版本](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_offline_zh.md)）：
+通过下述命令拉取并启动 FunASR 软件包 docker 镜像（[获取最新镜像版本](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_offline_zh.md)）：
 
 ```shell
 sudo docker pull \
-  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.3.0
+  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.4.1
 mkdir -p ./funasr-runtime-resources/models
 sudo docker run -p 10095:10095 -it --privileged=true \
   -v $PWD/funasr-runtime-resources/models:/workspace/models \
-  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.3.0
+  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.4.1
 ```
 
 ###### 服务端启动
 
-docker启动之后，启动 funasr-wss-server服务程序：
+docker 启动之后，启动 funasr-wss-server 服务程序：
+
 ```shell
 cd FunASR/runtime
 nohup bash run_server.sh \
@@ -122,18 +134,18 @@ nohup bash run_server.sh \
 ```
 
 ###### 客户端测试
+
 客户端测试（[samples](https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ASR/sample/funasr_samples.tar.gz)）
+
 ```shell
 python3 funasr_wss_client.py --host "127.0.0.1" --port 10095 --mode offline --audio_in "../audio/asr_example.wav"
 ```
+
 更多例子参考（[点击此处](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_offline_zh.md)）
 
+### 工业模型 egs
 
-
-### 工业模型egs
-
-如果您希望使用ModelScope中预训练好的工业模型，进行推理或者微调训练，您可以参考下面指令：
-
+如果您希望使用 ModelScope 中预训练好的工业模型，进行推理或者微调训练，您可以参考下面指令：
 
 ```python
 from modelscope.pipelines import pipeline
@@ -151,8 +163,7 @@ print(rec_result)
 
 更多例子可以参考（[点击此处](https://alibaba-damo-academy.github.io/FunASR/en/modelscope_pipeline/quick_start.html)）
 
-
-### 学术模型egs
+### 学术模型 egs
 
 如果您希望从头开始训练，通常为学术模型，您可以通过下面的指令启动训练与推理：
 

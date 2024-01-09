@@ -11,6 +11,7 @@ You can use FunASR in the following ways:
 ## Service Deployment SDK
 
 ### Python version Example
+
 Supports real-time streaming speech recognition, uses non-streaming models for error correction, and outputs text with punctuation. Currently, only single client is supported. For multi-concurrency, please refer to the C++ version service deployment SDK below.
 
 #### Server Deployment
@@ -33,6 +34,7 @@ For more examples, please refer to [docs](../runtime/python/websocket/README.md)
 Both high-precision, high-efficiency, and high-concurrency file transcription, as well as low-latency real-time speech recognition, are supported. It also supports Docker deployment and multiple concurrent requests.
 
 ##### Docker Installation (optional)
+
 ###### If you have already installed Docker, skip this step.
 
 ```shell
@@ -43,6 +45,7 @@ sudo bash install_docker.sh
 ##### Real-time Speech Recognition Service Deployment
 
 ###### Docker Image Download and Launch
+
 Use the following command to pull and launch the FunASR software package Docker image（[Get the latest image version](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_online.md)）：
 
 ```shell
@@ -78,26 +81,28 @@ nohup bash run_server_2pass.sh \
 ```
 
 ###### Client Testing
+
 Testing [samples](https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ASR/sample/funasr_samples.tar.gz)
 
 ```shell
 python3 funasr_wss_client.py --host "127.0.0.1" --port 10096 --mode 2pass
 ```
-For more examples, please refer to [docs](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_online.md)
 
+For more examples, please refer to [docs](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_online.md)
 
 #### File Transcription Service, Mandarin (CPU)
 
 ###### Docker Image Download and Launch
+
 Use the following command to pull and launch the FunASR software package Docker image（[Get the latest image version](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_offline.md)）：
 
 ```shell
 sudo docker pull \
-  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.3.0
+  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.4.1
 mkdir -p ./funasr-runtime-resources/models
 sudo docker run -p 10095:10095 -it --privileged=true \
   -v $PWD/funasr-runtime-resources/models:/workspace/models \
-  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.3.0
+  registry.cn-hangzhou.aliyuncs.com/funasr_repo/funasr:funasr-runtime-sdk-cpu-0.4.1
 ```
 
 ###### Server Start
@@ -126,12 +131,12 @@ nohup bash run_server.sh \
 ##### Client Testing
 
 Testing [samples](https://isv-data.oss-cn-hangzhou.aliyuncs.com/ics/MaaS/ASR/sample/funasr_samples.tar.gz)
+
 ```shell
 python3 funasr_wss_client.py --host "127.0.0.1" --port 10095 --mode offline --audio_in "../audio/asr_example.wav"
 ```
 
 For more examples, please refer to [docs](https://github.com/alibaba-damo-academy/FunASR/blob/main/runtime/docs/SDK_advanced_guide_offline.md)
-
 
 ## Industrial Model Egs
 
@@ -161,4 +166,5 @@ If you want to train from scratch, usually for academic models, you can start tr
 cd egs/aishell/paraformer
 . ./run.sh --CUDA_VISIBLE_DEVICES="0,1" --gpu_num=2
 ```
+
 More examples could be found in [docs](https://alibaba-damo-academy.github.io/FunASR/en/modelscope_pipeline/quick_start.html)
